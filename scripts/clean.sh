@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -x
+
+# Available environment variables:
+#
+# DOCKER_IMAGE_NAME
+# DOCKER_IMAGE_TAG
+# DOCKER_REGISTRY
+# DOCKER_NAMESPACE
+
+docker rmi -f $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG
+docker rmi -f $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG
