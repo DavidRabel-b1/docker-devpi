@@ -8,7 +8,9 @@ ENV DEVPI_CLIENT_VERSION 2.7.0
 RUN apt-get update \
     && apt-get upgrade -y \
     && pip install -q -U "devpi-server==$DEVPI_SERVER_VERSION" \
-    && pip install -q -U "devpi-client==$DEVPI_CLIENT_VERSION"
+    && pip install -q -U "devpi-client==$DEVPI_CLIENT_VERSION" \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY files/start.sh /start.sh
 ENTRYPOINT ["/start.sh"]
