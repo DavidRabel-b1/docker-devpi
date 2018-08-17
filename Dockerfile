@@ -1,21 +1,27 @@
-FROM python:2.7
-MAINTAINER Betacloud Solutions GmbH (https://www.betacloud-solutions.de)
-
-ENV DEVPI_SERVER_VERSION 4.2.1
-ENV DEVPI_CLIENT_VERSION 2.7.0
-
-ENV DEVPI_HOST 0.0.0.0
-ENV DEVPI_PORT 3141
+FROM ubuntu:18.04
+LABEL maintainer="Betacloud Solutions GmbH (https://www.betacloud-solutions.de)"
 
 ENV DEBIAN_FRONTEND noninteractive
+ARG VERSION
+ENV VERSION ${VERSION:-4.6.0}
+
+ARG VERSION_CLIENT
+ENV VERSION_CLIENT ${VERSION_CLIENT:-4.0.3}
+
+COPY files/run.sh /run.sh
 
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && pip install -q -U "devpi-server==$DEVPI_SERVER_VERSION" \
-    && pip install -q -U "devpi-client==$DEVPI_CLIENT_VERSION" \
+    && apt-get install -y \
+        python-dev \
+        python-pip \
+    && pip install -q -U "devpi-server==$VERSION" \
+    && pip install -q -U "devpi-client==$VERSION_CLIENT" \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf \
+        /var/lib/apt/lists/* \
+        /tmp/* \
+        /var/tmp/*
 
-COPY files/start.sh /start.sh
-ENTRYPOINT ["/start.sh"]
 EXPOSE 3141
+
+CMD ["/run.sh"]

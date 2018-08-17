@@ -10,7 +10,7 @@ env:
   global:
     - REPOSITORY=osism/devpi
   matrix:
-    - VERSION=latest
+    - VERSION=4.6.0
 
 script:
   - bash scripts/build.sh
