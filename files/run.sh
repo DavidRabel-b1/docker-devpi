@@ -9,7 +9,7 @@ set -x
 # Set default values
 
 DEVPI_HOST=${DEVPI_HOST:-0.0.0.0}
-DEVPI_PORT=${DEVPI_HOST:-3141}
+DEVPI_PORT=${DEVPI_PORT:-3141}
 
 export DEVPI_SERVERDIR=/data/server
 export DEVPI_CLIENTDIR=/data/client
